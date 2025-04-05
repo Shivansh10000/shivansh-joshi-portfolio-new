@@ -1,5 +1,5 @@
 import React, { useRef, useMemo } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
 interface ParticleFieldProps {
@@ -15,6 +15,7 @@ export const ParticleField: React.FC<ParticleFieldProps> = ({
 }) => {
   const mesh = useRef<THREE.Points>(null!);
   const dummy = useMemo(() => new THREE.Object3D(), []);
+  const { viewport } = useThree();
 
   // Generate random particles
   const particles = useMemo(() => {
@@ -52,10 +53,14 @@ export const ParticleField: React.FC<ParticleFieldProps> = ({
     return temp;
   }, [count]);
 
-  useFrame(() => {
-    // Update particle positions for animation
+  useFrame((state) => {
+    const mouseX = state.mouse.x * viewport.width / 2;
+    const mouseY = state.mouse.y * viewport.height / 2;
+    const interactionRadiusSq = 25;
+
+    // Update particle positions for animation and mouse interaction
     particles.forEach((particle, i) => {
-      const { factor, speed } = particle;
+      const { factor, speed, xFactor, yFactor, zFactor } = particle;
       let { t } = particle;
       
       t = particle.t += speed / 2;
@@ -64,10 +69,40 @@ export const ParticleField: React.FC<ParticleFieldProps> = ({
       const s = Math.max(1.5, Math.cos(t) * 5);
       
       if (mesh.current) {
+        const currentPosition = new THREE.Vector3(
+          mesh.current.geometry.attributes.position.array[i * 3],
+          mesh.current.geometry.attributes.position.array[i * 3 + 1],
+          mesh.current.geometry.attributes.position.array[i * 3 + 2]
+        );
+
+        const basePositionX = (xFactor + a) * factor;
+        const basePositionY = (yFactor + b) * factor;
+        const basePositionZ = (zFactor + a) * factor;
+
+        let finalX = basePositionX;
+        let finalY = basePositionY;
+
+        // Calculate mouse repulsion
+        const dx = currentPosition.x - mouseX;
+        const dy = currentPosition.y - mouseY;
+        const distSq = dx * dx + dy * dy;
+
+        if (distSq < interactionRadiusSq) {
+          const force = (interactionRadiusSq - distSq) / interactionRadiusSq;
+          const len = Math.sqrt(distSq);
+          if (len > 0.01) {
+            const normX = dx / len;
+            const normY = dy / len;
+            const pushStrength = 1.5;
+            finalX += normX * force * pushStrength;
+            finalY += normY * force * pushStrength;
+          }
+        }
+
         dummy.position.set(
-          (particle.xFactor + a) * factor,
-          (particle.yFactor + b) * factor,
-          (particle.zFactor + a) * factor
+          finalX,
+          finalY,
+          basePositionZ
         );
         dummy.scale.set(s, s, s);
         dummy.updateMatrix();

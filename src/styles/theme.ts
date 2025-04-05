@@ -1,17 +1,19 @@
 export const theme = {
   colors: {
-    primary: '#6200EE', // Example Primary Color (Flashy Purple)
-    secondary: '#03DAC6', // Example Secondary Color (Flashy Teal)
+    primary: '#00aaff', // Electric Blue
+    secondary: '#03DAC6', // Teal
     background: '#121212', // Dark background
     surface: '#1E1E1E', // Slightly lighter surface for cards/sections
     text: '#E0E0E0', // Light text
     textSecondary: '#A0A0A0', // Secondary text
-    accent: '#FF4081', // Flashy accent (Pink)
+    accent: '#00ffaa', // Vibrant Green
   },
+  /* // Fonts are now set in GlobalStyles
   fonts: {
     main: '"Roboto", sans-serif', // Example main font (ensure imported)
     heading: '"Montserrat", sans-serif', // Example heading font (ensure imported)
   },
+  */
   spacing: {
     small: '8px',
     medium: '16px',

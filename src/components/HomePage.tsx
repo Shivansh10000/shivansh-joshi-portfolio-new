@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
+
+// Keyframe animation for text glow pulse
+const textGlow = keyframes`
+  0%, 100% { text-shadow: 0 0 10px ${({ theme }) => theme.colors.primary}, 0 0 20px ${({ theme }) => theme.colors.primary}, 0 0 30px ${({ theme }) => theme.colors.accent}; }
+  50% { text-shadow: 0 0 20px ${({ theme }) => theme.colors.primary}, 0 0 30px ${({ theme }) => theme.colors.primary}, 0 0 40px ${({ theme }) => theme.colors.accent}; }
+`;
 
 const HomePageWrapper = styled.section`
   min-height: 100vh;
@@ -16,31 +22,38 @@ const HomePageWrapper = styled.section`
 
 const Name = styled(motion.h1)`
   font-size: 4rem;
-  color: #00aaff;
+  color: ${({ theme }) => theme.colors.primary};
   margin-bottom: 1rem;
-  text-shadow: 0 0 10px rgba(0, 170, 255, 0.5);
   cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  animation: ${textGlow} 3s ease-in-out infinite;
 `;
 
 const Tagline = styled(motion.p)`
   font-size: 1.5rem;
-  color: white;
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+  color: ${({ theme }) => theme.colors.text};
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
   max-width: 600px;
+  font-style: italic;
 `;
 
 const InteractButton = styled(motion.button)`
   background: rgba(0, 0, 0, 0.5);
-  color: #00ffaa;
-  border: 2px solid #00ffaa;
+  color: ${({ theme }) => theme.colors.accent};
+  border: 2px solid ${({ theme }) => theme.colors.accent};
   border-radius: 30px;
   padding: 12px 30px;
   margin-top: 2rem;
   font-size: 1.1rem;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   cursor: pointer;
   position: relative;
   overflow: hidden;
   z-index: 1;
+  box-shadow: 0 0 8px ${({ theme }) => theme.colors.accent};
   
   &::before {
     content: '';
@@ -49,13 +62,17 @@ const InteractButton = styled(motion.button)`
     left: 0;
     width: 0%;
     height: 100%;
-    background: rgba(0, 255, 170, 0.2);
+    background: ${({ theme }) => theme.colors.accent + '40'};
     transition: width 0.4s ease;
     z-index: -1;
   }
   
   &:hover::before {
     width: 100%;
+  }
+
+  &:hover {
+     box-shadow: 0 0 15px ${({ theme }) => theme.colors.accent};
   }
 `;
 

@@ -10,6 +10,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ParticleField from './components/three/ParticleField';
 import FloatingLaptop from './components/three/FloatingLaptop';
 import SkillSphere from './components/three/SkillSphere';
+import { useTheme } from 'styled-components';
 
 // Loading screen component
 function Loader() {
@@ -85,29 +86,40 @@ const LoadingText = styled.div`
   font-family: 'Courier New', monospace;
 `;
 
+// Game-like navigation controls - MOVED AND RESTYLED
 const NavigationControls = styled.div`
   position: fixed;
-  bottom: 20px;
+  top: 0;
   left: 0;
   right: 0;
   display: flex;
   justify-content: center;
   gap: 20px;
+  padding: 15px 0;
+  background: rgba(10, 10, 25, 0.6);
+  backdrop-filter: blur(5px);
   z-index: 10;
 `;
 
 const NavButton = styled(motion.button)`
   background: rgba(0, 0, 0, 0.7);
-  color: #00aaff;
-  border: 2px solid #00aaff;
+  color: ${({ theme }) => theme.colors.primary};
+  border: 2px solid ${({ theme }) => theme.colors.primary};
   border-radius: 50px;
   padding: 10px 20px;
   font-size: 16px;
+  font-family: 'Orbitron', sans-serif;
   cursor: pointer;
   transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 0 5px rgba(0, 170, 255, 0.5);
   
   &:hover {
-    background: rgba(0, 170, 255, 0.2);
+    background: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.background};
+    border-color: ${({ theme }) => theme.colors.accent};
+    box-shadow: 0 0 15px ${({ theme }) => theme.colors.accent};
     transform: scale(1.05);
   }
 `;
@@ -115,6 +127,7 @@ const NavButton = styled(motion.button)`
 function App() {
   const [activeSection, setActiveSection] = useState('home');
   const contentRef = useRef<HTMLDivElement>(null);
+  const theme = useTheme();
   
   const sections = ['home', 'education', 'experience', 'technologies'];
   
@@ -124,6 +137,34 @@ function App() {
   
   return (
     <AppWrapper>
+      {/* Game-like navigation controls - MOVED TO TOP */}
+      <NavigationControls>
+        {sections.map((section) => (
+          <NavButton
+            key={section}
+            onClick={() => handleNavigation(section)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            animate={{
+              backgroundColor: activeSection === section 
+                ? theme.colors.primary
+                : 'rgba(0, 0, 0, 0.7)',
+              color: activeSection === section
+                ? theme.colors.background
+                : theme.colors.primary,
+              borderColor: activeSection === section 
+                ? theme.colors.accent
+                : theme.colors.primary,
+              boxShadow: activeSection === section
+                ? `0 0 10px ${theme.colors.accent}`
+                : `0 0 5px ${theme.colors.primary}`
+            }}
+          >
+            {section.charAt(0).toUpperCase() + section.slice(1)}
+          </NavButton>
+        ))}
+      </NavigationControls>
+
       {/* 3D Background with interactive elements */}
       <StyledCanvas dpr={[1, 2]} camera={{ position: [0, 0, 10], fov: 75 }}>
         <Suspense fallback={<Loader />}>
@@ -146,7 +187,7 @@ function App() {
           
           {activeSection === 'technologies' && (
             <group position={[0, 0, -5]}>
-              <SkillSphere skills={skills} />
+              <SkillSphere skills={skills} radius={6} />
             </group>
           )}
           
@@ -221,24 +262,6 @@ function App() {
           )}
         </AnimatePresence>
       </ContentWrapper>
-      
-      {/* Game-like navigation controls */}
-      <NavigationControls>
-        {sections.map((section) => (
-          <NavButton
-            key={section}
-            onClick={() => handleNavigation(section)}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            animate={{ 
-              backgroundColor: activeSection === section ? 'rgba(0, 170, 255, 0.3)' : 'rgba(0, 0, 0, 0.7)',
-              borderColor: activeSection === section ? '#00ffaa' : '#00aaff'
-            }}
-          >
-            {section.charAt(0).toUpperCase() + section.slice(1)}
-          </NavButton>
-        ))}
-      </NavigationControls>
     </AppWrapper>
   );
 }
