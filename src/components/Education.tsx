@@ -2,98 +2,226 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
-// Container variant for staggering children
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.3, // Time delay between each child animation
-    },
+// --- Placeholder Data (Replace with your actual info) ---
+const educationData = [
+  {
+    id: 1,
+    institution: 'Awesome College University',
+    degree: 'Bachelor of Science in Computer Science', // Added Degree field
+    description: 'Studied amazing things and learned a lot. Focused on web development, algorithms, and AI. Graduated with honors.',
+    dates: '2017 - 2021',
+    scoreLabel: 'CGPA',
+    scoreValue: '3.9/4.0', // Example score
+    imageUrl: 'https://via.placeholder.com/150/00aaff/ffffff?text=University', // Placeholder Image URL
+    imageAlt: 'Awesome College University Campus'
   },
-};
+  {
+    id: 2,
+    institution: 'Super High School',
+    degree: 'High School Diploma', // Added Degree field
+    description: 'Built a strong foundation for future learning. Participated in coding clubs and science fairs.',
+    dates: '2013 - 2017',
+    scoreLabel: 'Grade',
+    scoreValue: 'A', // Example score
+    imageUrl: 'https://via.placeholder.com/150/64ffda/0a192f?text=High+School', // Placeholder Image URL (different color)
+    imageAlt: 'Super High School Building'
+  }
+];
 
-// Item variant for individual item animation (slide in from bottom)
-const itemVariants = {
-  hidden: { y: 50, opacity: 0 },
-  visible: { 
-    y: 0, 
-    opacity: 1, 
-    transition: { type: 'spring', stiffness: 100 } 
-  },
-};
+// --- Styled Components ---
 
+// Re-use or redefine SectionWrapper and SectionTitle (assuming similar style as Technologies)
 const SectionWrapper = styled(motion.section)`
-  padding: ${({ theme }) => theme.spacing.xlarge} ${({ theme }) => theme.spacing.large};
-  background-color: ${({ theme }) => theme.colors.surface + '99'};
-  margin-bottom: ${({ theme }) => theme.spacing.large};
+  padding: 4rem 2rem;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(10, 25, 47, 0.8) 0%, rgba(17, 34, 64, 0.9) 100%); // Slightly different gradient mix
+  backdrop-filter: blur(4px);
   border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    padding: 3rem 1rem;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-  }
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    padding: 2rem 0.5rem;
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
+  margin: 3rem auto;
+  max-width: 1000px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 `;
 
 const SectionTitle = styled(motion.h2)`
   text-align: center;
-  margin-bottom: ${({ theme }) => theme.spacing.large};
+  margin-bottom: 3rem;
   font-size: 2.5rem;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    font-size: 2rem;
-    margin-bottom: 2rem;
-  }
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-  }
+  color: ${({ theme }) => theme.colors.primary};
+  text-shadow: 0 0 15px ${({ theme }) => theme.colors.primary}40;
 `;
 
+// Container for the list of education items
+const EducationList = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem; // Space between education cards
+`;
+
+// Individual Education Item Card
 const EducationItem = styled(motion.div)`
-  margin-bottom: ${({ theme }) => theme.spacing.medium};
-  padding: ${({ theme }) => theme.spacing.medium};
-  border-left: 4px solid ${({ theme }) => theme.colors.secondary};
+  display: flex;
+  flex-direction: column; // Default: Stack image on top for mobile
+  background-color: rgba(255, 255, 255, 0.05); // Slightly different background than wrapper
+  border-radius: 10px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  overflow: hidden; // Ensure image corners are clipped if needed
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), 0 0 15px ${({ theme }) => theme.colors.primary}33;
+  }
+
+  // Media query for larger screens (tablet and up)
+  @media (min-width: 768px) {
+    flex-direction: row; // Side-by-side layout
+    gap: 2rem; // Gap between image and text
+    align-items: flex-start; // Align items to the top
+  }
 `;
 
-const Institution = styled.h3`
-  color: ${({ theme }) => theme.colors.secondary};
-  margin-bottom: ${({ theme }) => theme.spacing.small};
+// Wrapper for the image
+const ImageWrapper = styled.div`
+  flex-shrink: 0; // Prevent image from shrinking
+  width: 100%; // Full width on mobile
+  margin-bottom: 1.5rem; // Space below image on mobile
+
+  @media (min-width: 768px) {
+    width: 150px; // Fixed width on larger screens
+    height: 150px; // Fixed height for a square aspect ratio
+    margin-bottom: 0; // No margin needed on larger screens
+  }
 `;
 
-const Description = styled.p`
+// Styled Image
+const StyledImage = styled.img`
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; // Cover the area, crop if needed
+  border-radius: 8px; // Slightly rounded corners for the image
+  border: 1px solid rgba(255, 255, 255, 0.15);
+`;
+
+// Container for all text details
+const TextDetails = styled.div`
+  flex-grow: 1; // Allow text details to take remaining space
+  display: flex;
+  flex-direction: column;
+`;
+
+// Institution Name (Most prominent)
+const InstitutionName = styled.h3`
+  font-size: 1.5rem;
+  color: ${({ theme }) => theme.colors.primary}; // Use accent color
+  margin: 0 0 0.25rem 0; // Adjust margin
+  line-height: 1.2;
+`;
+
+// Degree (Slightly less prominent than name)
+const Degree = styled.p`
+  font-size: 1rem;
+  font-weight: 500; // Medium weight
+  color: ${({ theme }) => theme.colors.text}; // Brighter than secondary text
+  margin: 0 0 0.5rem 0;
+`;
+
+
+// Dates (Less prominent)
+const Dates = styled.p`
+  font-size: 0.9rem;
   color: ${({ theme }) => theme.colors.textSecondary};
+  margin: 0 0 1rem 0; // Space before description
+  font-family: monospace; // Optional: use mono font for dates
 `;
 
+// Description Text
+const Description = styled.p`
+  font-size: 1rem;
+  color: ${({ theme }) => theme.colors.textSecondary};
+  line-height: 1.6;
+  margin: 0 0 1.5rem 0; // Space before score
+`;
+
+// Score / CGPA Area
+const Score = styled.div`
+  margin-top: auto; // Push score to the bottom of the text area
+  padding-top: 1rem; // Space above the score
+  border-top: 1px solid rgba(255, 255, 255, 0.1); // Divider line
+  font-size: 0.95rem;
+  color: ${({ theme }) => theme.colors.textSecondary};
+
+  span {
+    font-weight: 600; // Bold label
+    color: ${({ theme }) => theme.colors.text}; // Slightly brighter label
+  }
+
+  strong {
+     font-weight: 700; // Bold value
+     color: ${({ theme }) => theme.colors.primary}; // Accent color for score value
+     margin-left: 0.5rem;
+  }
+`;
+
+
+// --- Animation Variants (Can reuse variants from Technologies or define new ones) ---
+const listVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2, // Stagger the appearance of each EducationItem
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { x: -50, opacity: 0 }, // Slide in from left
+  visible: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      type: 'spring',
+      stiffness: 100,
+      damping: 15,
+    },
+  },
+};
+
+// --- Component ---
 const Education: React.FC = () => {
   return (
-    <SectionWrapper 
-      id="education"
-      variants={containerVariants}
+    <SectionWrapper
+      id="education" // Link from Navbar
       initial="hidden"
-      animate="visible"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.1 }}
     >
       <SectionTitle variants={itemVariants}>Education</SectionTitle>
-      <EducationItem variants={itemVariants}>
-        <Institution>Awesome College University</Institution>
-        <Description>Studied amazing things and learned a lot. Graduated with honors. (2017 - 2021)</Description>
-      </EducationItem>
-      <EducationItem variants={itemVariants}>
-        <Institution>Super High School</Institution>
-        <Description>Built a strong foundation for future learning. Participated in coding clubs. (2013 - 2017)</Description>
-      </EducationItem>
+      <EducationList variants={listVariants}>
+        {educationData.map((edu) => (
+          <EducationItem key={edu.id} variants={itemVariants}>
+            <ImageWrapper>
+              <StyledImage src={edu.imageUrl} alt={edu.imageAlt} />
+            </ImageWrapper>
+            <TextDetails>
+              <InstitutionName>{edu.institution}</InstitutionName>
+              <Degree>{edu.degree}</Degree>
+              <Dates>{edu.dates}</Dates>
+              <Description>{edu.description}</Description>
+              <Score>
+                <span>{edu.scoreLabel}:</span>
+                <strong>{edu.scoreValue}</strong>
+              </Score>
+            </TextDetails>
+          </EducationItem>
+        ))}
+      </EducationList>
     </SectionWrapper>
   );
 };
 
-export default Education; 
+export default Education;
