@@ -181,15 +181,14 @@ function App() {
           
           {/* Section-specific 3D elements */}
           {activeSection === 'home' && (
-            <group position={[3, 0, 0]}>
-              <FloatingLaptop />
-            </group>
-          )}
-          
-          {activeSection === 'technologies' && (
-            <group position={[0, 0, -5]}>
-              <TechnologyHelix skills={skills} />
-            </group>
+            <>
+              <group position={[10, -1, -2]} scale={0.8}>
+                <FloatingLaptop />
+              </group>
+              <group position={[-13, 0, -5]} scale={0.9}>
+                <TechnologyHelix skills={skills} rotationSpeed={0.003} />
+              </group>
+            </>
           )}
           
           {/* Camera movement controls */}
