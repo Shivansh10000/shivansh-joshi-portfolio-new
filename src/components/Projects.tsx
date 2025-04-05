@@ -39,6 +39,13 @@ const SectionWrapper = styled(motion.section)`
   backdrop-filter: blur(5px);
   border-radius: 15px;
   border: 1px solid rgba(255, 255, 255, 0.1);
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    padding: 3rem 1rem;
+  }
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 2rem 0.5rem;
+  }
 `;
 
 const SectionTitle = styled(motion.h2)`
@@ -47,20 +54,38 @@ const SectionTitle = styled(motion.h2)`
   font-size: 2.5rem;
   color: ${({ theme }) => theme.colors.secondary}; // Use secondary color
   text-shadow: 0 0 15px ${({ theme }) => theme.colors.secondary}40;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 1.8rem;
+  }
 `;
 
 const ProjectsLayout = styled(motion.div)`
   display: flex;
   gap: 2rem;
-  flex-wrap: wrap; // Allow wrapping on smaller screens if needed
+  /* flex-wrap: wrap; // Keep wrap for safety, but explicitly stack */
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    flex-direction: column; // Stack columns on tablet and smaller
+    gap: 1.5rem;
+  }
 `;
 
 const ProjectList = styled(motion.div)`
-  flex: 2; // Takes up roughly 40%
-  min-width: 250px; // Minimum width before wrapping
+  flex: 2; 
+  min-width: 250px; 
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    flex: none; // Reset flex basis when stacked
+    width: 100%; // Take full width when stacked
+  }
 `;
 
 const ProjectListItem = styled(motion.div)<{ $isSelected: boolean }>`
@@ -91,16 +116,28 @@ const ProjectListItem = styled(motion.div)<{ $isSelected: boolean }>`
       color: ${({ theme }) => theme.colors.secondary};
     }
   }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 0.8rem 1rem;
+    h3 {
+      font-size: 1rem; // Slightly smaller title on mobile
+    }
+  }
 `;
 
 const ProjectDetails = styled(motion.div)`
-  flex: 3; // Takes up roughly 60%
-  min-width: 300px; // Minimum width
+  flex: 3; 
+  min-width: 300px;
   background-color: ${({ theme }) => theme.colors.surface + 'AA'};
   border-radius: 10px;
   padding: 1.5rem;
   overflow: hidden; // Contain the image within bounds
   border: 1px solid rgba(255, 255, 255, 0.1);
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    flex: none; // Reset flex basis when stacked
+    width: 100%; // Take full width when stacked
+  }
 `;
 
 const ProjectImage = styled(motion.img)`

@@ -28,6 +28,15 @@ const Name = styled(motion.h1)`
   text-transform: uppercase;
   letter-spacing: 3px;
   animation: ${textGlow} 3s ease-in-out infinite;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-size: 3rem;
+    letter-spacing: 2px;
+  }
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 2.5rem;
+    letter-spacing: 1.5px;
+  }
 `;
 
 const Tagline = styled(motion.p)`
@@ -36,6 +45,13 @@ const Tagline = styled(motion.p)`
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
   max-width: 600px;
   font-style: italic;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-size: 1.2rem;
+  }
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 1rem;
+  }
 `;
 
 const InteractButton = styled(motion.button)`
@@ -73,6 +89,16 @@ const InteractButton = styled(motion.button)`
 
   &:hover {
      box-shadow: 0 0 15px ${({ theme }) => theme.colors.accent};
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-size: 1rem;
+    padding: 10px 25px;
+    margin-top: 1.5rem;
+  }
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 0.9rem;
+    padding: 8px 20px;
   }
 `;
 

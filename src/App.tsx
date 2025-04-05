@@ -101,6 +101,16 @@ const NavigationControls = styled.div`
   background: rgba(10, 10, 25, 0.6);
   backdrop-filter: blur(5px);
   z-index: 10;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    gap: 10px;
+    padding: 10px 0;
+    justify-content: space-around; // Spread out buttons more on smaller screens
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    gap: 5px;
+  }
 `;
 
 const NavButton = styled(motion.button)`
@@ -123,6 +133,17 @@ const NavButton = styled(motion.button)`
     border-color: ${({ theme }) => theme.colors.accent};
     box-shadow: 0 0 15px ${({ theme }) => theme.colors.accent};
     transform: scale(1.05);
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    padding: 8px 15px;
+    font-size: 14px;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 6px 10px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
   }
 `;
 

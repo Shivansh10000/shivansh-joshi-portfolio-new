@@ -28,11 +28,35 @@ const SectionWrapper = styled(motion.section)`
   border-radius: 15px;
   background-color: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(3px);
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    padding: 3rem 1rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 2rem 0.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
 `;
 
 const SectionTitle = styled(motion.h2)`
   text-align: center;
   margin-bottom: ${({ theme }) => theme.spacing.large};
+  font-size: 2.5rem;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
 `;
 
 const ExperienceItem = styled(motion.div)`
