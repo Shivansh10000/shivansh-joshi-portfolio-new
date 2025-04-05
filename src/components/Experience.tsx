@@ -96,20 +96,14 @@ const Experience: React.FC = () => {
     >
       <SectionTitle variants={itemVariants}>Experience</SectionTitle>
       <ExperienceItem variants={itemVariants}>
-        <Company>Tech Innovations Inc.</Company>
-        <Role>Senior Software Engineer</Role>
-        <Dates>Jan 2023 - Present</Dates>
-        <Description>Promoted from Software Engineer. Led development on key projects, mentored junior developers, improved system performance by X%. (Placeholder Description)</Description>
-        <br /> 
+        <Company>Shipsy</Company>
         <Role>Software Engineer</Role>
-        <Dates>June 2021 - Dec 2022</Dates>
-        <Description>Developed features for the main product, collaborated with cross-functional teams, contributed to code reviews. (Placeholder Description)</Description>
-      </ExperienceItem>
-      <ExperienceItem variants={itemVariants}>
-        <Company>Startup Heroes LLC</Company>
-        <Role>Junior Developer Intern</Role>
-        <Dates>May 2020 - Aug 2020</Dates>
-        <Description>Assisted senior developers, learned agile methodologies, fixed bugs, and contributed to documentation. (Placeholder Description)</Description>
+        <Dates>June 2024 - Present</Dates>
+        <Description>Working on the core product of the company, which is a platform for managing shipping and logistics.</Description>
+        <br /> 
+        <Role>Software Engineer Intern</Role>
+        <Dates>Jan 2024 - May 2024</Dates>
+        <Description>Developed various features involving React, Node.js, and PostgreSQL. Contributed to multiple projects, including a web app for managing shipping and logistics.</Description>
       </ExperienceItem>
     </SectionWrapper>
   );

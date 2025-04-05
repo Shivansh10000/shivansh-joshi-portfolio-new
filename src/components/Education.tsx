@@ -6,25 +6,25 @@ import { motion } from 'framer-motion';
 const educationData = [
   {
     id: 1,
-    institution: 'Awesome College University',
-    degree: 'Bachelor of Science in Computer Science', // Added Degree field
-    description: 'Studied amazing things and learned a lot. Focused on web development, algorithms, and AI. Graduated with honors.',
-    dates: '2017 - 2021',
+    institution: 'Delhi Technological University',
+    degree: 'Bachelor of Technology in Information Technology', // Added Degree field
+    description: 'Studied Information Technology at Delhi Technological University, where I gained a strong foundation in computer science and software development.',
+    dates: '2020 - 2024',
     scoreLabel: 'CGPA',
-    scoreValue: '3.9/4.0', // Example score
-    imageUrl: 'https://via.placeholder.com/150/00aaff/ffffff?text=University', // Placeholder Image URL
-    imageAlt: 'Awesome College University Campus'
+    scoreValue: '8.8',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/en/b/b5/DTU%2C_Delhi_official_logo.png', // Placeholder Image URL
+    imageAlt: 'Delhi Technological University'
   },
   {
     id: 2,
-    institution: 'Super High School',
-    degree: 'High School Diploma', // Added Degree field
+    institution: 'Vikas Bharati Public School',
+    degree: 'High School 12th Grade', // Added Degree field
     description: 'Built a strong foundation for future learning. Participated in coding clubs and science fairs.',
-    dates: '2013 - 2017',
-    scoreLabel: 'Grade',
-    scoreValue: 'A', // Example score
-    imageUrl: 'https://via.placeholder.com/150/64ffda/0a192f?text=High+School', // Placeholder Image URL (different color)
-    imageAlt: 'Super High School Building'
+    dates: '2018 - 2019',
+    scoreLabel: 'Percentage',
+    scoreValue: '92%',
+    imageUrl: 'https://housing-images.n7net.in/d89cff98/1ad4011c04cd9619b9a39a282fbce59a/v0/medium.jpg',
+    imageAlt: 'Vikas Bharati Public School'
   }
 ];
 
