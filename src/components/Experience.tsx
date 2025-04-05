@@ -1,26 +1,49 @@
 import React from 'react';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
+
+// Container variant (can reuse or define separately)
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.4 }, // Slightly slower stagger for experience
+  },
+};
+
+// Item variant (slide in from left, different effect)
+const itemVariants = {
+  hidden: { x: -100, opacity: 0 },
+  visible: {
+    x: 0,
+    opacity: 1,
+    transition: { type: 'spring', stiffness: 80 }
+  },
+};
 
 // Re-using SectionWrapper and SectionTitle styles (or create shared ones)
-const SectionWrapper = styled.section`
+const SectionWrapper = styled(motion.section)`
   padding: ${({ theme }) => theme.spacing.xlarge} ${({ theme }) => theme.spacing.large};
-  /* background-color: ${({ theme }) => theme.colors.surface}; // Maybe different bg? */
   margin-bottom: ${({ theme }) => theme.spacing.large};
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(3px);
 `;
 
-const SectionTitle = styled.h2`
+const SectionTitle = styled(motion.h2)`
   text-align: center;
   margin-bottom: ${({ theme }) => theme.spacing.large};
 `;
 
-const ExperienceItem = styled.div`
+const ExperienceItem = styled(motion.div)`
   margin-bottom: ${({ theme }) => theme.spacing.large};
   padding: ${({ theme }) => theme.spacing.medium};
-  border-left: 4px solid ${({ theme }) => theme.colors.accent}; // Use accent color
+  border-left: 4px solid ${({ theme }) => theme.colors.accent};
+  position: relative;
 `;
 
 const Company = styled.h3`
-  color: ${({ theme }) => theme.colors.accent}; // Use accent color
+  color: ${({ theme }) => theme.colors.accent};
   margin-bottom: ${({ theme }) => theme.spacing.small};
 `;
 
@@ -41,9 +64,14 @@ const Description = styled.p`
 
 const Experience: React.FC = () => {
   return (
-    <SectionWrapper id="experience">
-      <SectionTitle>Experience</SectionTitle>
-      <ExperienceItem>
+    <SectionWrapper 
+      id="experience"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      <SectionTitle variants={itemVariants}>Experience</SectionTitle>
+      <ExperienceItem variants={itemVariants}>
         <Company>Tech Innovations Inc.</Company>
         <Role>Senior Software Engineer</Role>
         <Dates>Jan 2023 - Present</Dates>
@@ -53,7 +81,12 @@ const Experience: React.FC = () => {
         <Dates>June 2021 - Dec 2022</Dates>
         <Description>Developed features for the main product, collaborated with cross-functional teams, contributed to code reviews. (Placeholder Description)</Description>
       </ExperienceItem>
-      {/* Add more experiences later */}
+      <ExperienceItem variants={itemVariants}>
+        <Company>Startup Heroes LLC</Company>
+        <Role>Junior Developer Intern</Role>
+        <Dates>May 2020 - Aug 2020</Dates>
+        <Description>Assisted senior developers, learned agile methodologies, fixed bugs, and contributed to documentation. (Placeholder Description)</Description>
+      </ExperienceItem>
     </SectionWrapper>
   );
 };

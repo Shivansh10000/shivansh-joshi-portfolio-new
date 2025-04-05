@@ -89,7 +89,12 @@ const FloatingIcon = styled(motion.div)`
   color: rgba(255, 255, 255, 0.3);
 `;
 
-const HomePage: React.FC = () => {
+// Define props for HomePage, including the navigation callback
+interface HomePageProps {
+  onNavigate: (section: string) => void;
+}
+
+const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
   const [nameHovered, setNameHovered] = useState(false);
   const [iconTriggered, setIconTriggered] = useState(false);
   
@@ -137,7 +142,7 @@ const HomePage: React.FC = () => {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.6 }}
-        onClick={() => setIconTriggered(prev => !prev)}
+        onClick={() => onNavigate('experience')}
       >
         EXPLORE PORTFOLIO
       </InteractButton>

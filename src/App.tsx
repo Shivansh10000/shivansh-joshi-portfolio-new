@@ -9,8 +9,9 @@ import { OrbitControls, Stars, Environment, useProgress, Html } from '@react-thr
 import { motion, AnimatePresence } from 'framer-motion';
 import ParticleField from './components/three/ParticleField';
 import FloatingLaptop from './components/three/FloatingLaptop';
-import SkillSphere from './components/three/SkillSphere';
+import TechnologyHelix from './components/three/TechnologyHelix';
 import { useTheme } from 'styled-components';
+import Footer from './components/Footer';
 
 // Loading screen component
 function Loader() {
@@ -187,7 +188,7 @@ function App() {
           
           {activeSection === 'technologies' && (
             <group position={[0, 0, -5]}>
-              <SkillSphere skills={skills} radius={6} />
+              <TechnologyHelix skills={skills} />
             </group>
           )}
           
@@ -221,7 +222,7 @@ function App() {
               exit={{ opacity: 0, y: -50 }}
               transition={{ duration: 0.5 }}
             >
-              <HomePage />
+              <HomePage onNavigate={handleNavigation} />
             </motion.div>
           )}
           
@@ -262,6 +263,9 @@ function App() {
           )}
         </AnimatePresence>
       </ContentWrapper>
+      
+      {/* Add Footer at the end */}
+      <Footer />
     </AppWrapper>
   );
 }
