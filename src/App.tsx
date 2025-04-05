@@ -4,6 +4,7 @@ import HomePage from './components/HomePage';
 import Education from './components/Education';
 import Experience from './components/Experience';
 import Technologies from './components/Technologies';
+import Projects from './components/Projects';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Stars, Environment, useProgress, Html } from '@react-three/drei';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -130,7 +131,7 @@ function App() {
   const contentRef = useRef<HTMLDivElement>(null);
   const theme = useTheme();
   
-  const sections = ['home', 'education', 'experience', 'technologies'];
+  const sections = ['home', 'education', 'experience', 'technologies', 'projects'];
   
   const handleNavigation = (section: string) => {
     setActiveSection(section);
@@ -258,6 +259,18 @@ function App() {
               transition={{ duration: 0.5 }}
             >
               <Technologies />
+            </motion.div>
+          )}
+          
+          {activeSection === 'projects' && (
+            <motion.div
+              key="projects"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -50 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Projects />
             </motion.div>
           )}
         </AnimatePresence>
