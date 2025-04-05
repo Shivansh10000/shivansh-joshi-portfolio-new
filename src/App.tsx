@@ -102,14 +102,17 @@ const NavigationControls = styled.div`
   backdrop-filter: blur(5px);
   z-index: 10;
 
+  // Apply responsiveness for tablet
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     gap: 10px;
     padding: 10px 0;
-    justify-content: space-around; // Spread out buttons more on smaller screens
+    justify-content: space-around; // Spread out buttons more
   }
 
+  // Apply responsiveness for mobile
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     gap: 5px;
+    padding: 8px 0;
   }
 `;
 
@@ -118,13 +121,13 @@ const NavButton = styled(motion.button)`
   color: ${({ theme }) => theme.colors.primary};
   border: 2px solid ${({ theme }) => theme.colors.primary};
   border-radius: 50px;
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 10px 20px; // Base padding
+  font-size: 16px; // Base font size
   font-family: 'Orbitron', sans-serif;
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1px; // Base letter spacing
   box-shadow: 0 0 5px rgba(0, 170, 255, 0.5);
   
   &:hover {
@@ -135,15 +138,17 @@ const NavButton = styled(motion.button)`
     transform: scale(1.05);
   }
 
+  // Apply responsiveness for tablet
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     padding: 8px 15px;
     font-size: 14px;
   }
 
+  // Apply responsiveness for mobile
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     padding: 6px 10px;
     font-size: 12px;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.5px; // Reduce letter spacing too
   }
 `;
 

@@ -39,6 +39,24 @@ const Name = styled(motion.h1)`
   }
 `;
 
+// NEW: Styled component for the intro paragraph
+const IntroParagraph = styled(motion.p)`
+  font-size: 1.1rem;
+  color: ${({ theme }) => theme.colors.text};
+  max-width: 700px; // Slightly wider than tagline
+  margin: 1.5rem 0;
+  line-height: 1.8;
+  font-family: sans-serif; // Use a standard sans-serif for readability
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-size: 1rem;
+    margin: 1rem 0;
+  }
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 0.9rem;
+  }
+`;
+
 const Tagline = styled(motion.p)`
   font-size: 1.5rem;
   color: ${({ theme }) => theme.colors.text};
@@ -154,10 +172,19 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         Shivansh Joshi
       </Name>
       
+      {/* Add the Intro Paragraph here */}
+      <IntroParagraph
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.4 }} // Animate after name
+      >
+        Hi there! I'm Shivansh, a passionate Full Stack Developer with a keen interest in creating dynamic, interactive, and user-friendly web experiences. I enjoy tackling challenging problems and bringing ideas to life with code, especially using modern technologies like React, Node.js, and Three.js.
+      </IntroParagraph>
+      
       <Tagline
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.3 }}
+        transition={{ duration: 0.8, delay: 0.5 }} // Adjust delay
       >
         Creative Developer | Building Interactive Experiences
       </Tagline>
